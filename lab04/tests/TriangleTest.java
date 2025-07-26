@@ -41,10 +41,10 @@ public abstract class TriangleTest {
         assertThat(actual).isEqualTo(false);
 
         actual = t.sidesFormTriangle(2, 1, 1);
-        assertThat(actual).isEqualTo(true);
+        assertThat(actual).isEqualTo(false);
 
         actual = t.sidesFormTriangle(3, 1, 1);
-        assertThat(actual).isEqualTo(true);
+        assertThat(actual).isEqualTo(false);
 
         // remember that you'll have to call on Triangle methods like
         // t.functionName(arguments), where t is a Triangle object
@@ -115,7 +115,7 @@ public abstract class TriangleTest {
         assertThat(actual).isEqualTo(18);
 
         actual = t.squaredHypotenuse(4, 3);
-        assertThat(actual).isEqualTo(5);
+        assertThat(actual).isEqualTo(25);
 
     }
 }
