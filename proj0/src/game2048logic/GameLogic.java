@@ -34,11 +34,9 @@ public class GameLogic {
                 board[i - 1][c] *= 2;
                 board[i][c] = 0;
                 return i;
-            } else {
-                return minR;
             }
         }
-        return 0;
+        return minR;
     }
     /**
      * Modifies the board to simulate the process of tilting column c
