@@ -71,6 +71,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         if (this.isEmpty()) {
             return null;
         }
+        size--;
         T temp = sentinel.next.item;
         sentinel.next  = sentinel.next.next;
         sentinel.next.prev = sentinel;
@@ -82,6 +83,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         if (this.isEmpty()) {
             return null;
         }
+        size--;
         T temp = sentinel.prev.item;
         sentinel.prev = sentinel.prev.prev;
         sentinel.prev.next = sentinel;
@@ -110,10 +112,13 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         if (index == 0) {
             return sentinel.next;
         }
+        if (index == size - 1) {
+            return sentinel.prev;
+        }
         if (index < size / 2) {
-            return getRecursiveHelper(index / 2).next;
+            return getRecursiveHelper(index - 1).next;
         } else {
-            return getRecursiveHelper(index * 2).prev;
+            return getRecursiveHelper(index + 1).prev;
         }
     }
 
