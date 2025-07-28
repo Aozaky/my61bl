@@ -88,7 +88,7 @@ public class LinkedListDeque61BTest {
     @Test
     public void getTest() {
         Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
-        assertThat(lld1.get(0)).isEqualTo(null);
+        assertThat(lld1.get(55555)).isEqualTo(null);
         assertThat(lld1.get(-1)).isEqualTo(null);
 
         lld1.addFirst(1);
@@ -116,7 +116,7 @@ public class LinkedListDeque61BTest {
     @Test
     public void getRecursiveTest() {
         Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
-        assertThat(lld1.get(0)).isEqualTo(null);
+        assertThat(lld1.get(55555)).isEqualTo(null);
         assertThat(lld1.get(-1)).isEqualTo(null);
 
         lld1.addFirst(1);
@@ -146,13 +146,26 @@ public class LinkedListDeque61BTest {
         Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
         assertThat(lld1.removeFirst()).isEqualTo(null);
 
-        lld1.addLast(0);
-        lld1.addLast(1);
-        lld1.addLast(2);
-        lld1.addLast(3);
+        lld1.addFirst(3);
+        lld1.addFirst(2);
+        lld1.addFirst(1);
+        lld1.addFirst(0);
 
         assertThat(lld1.removeFirst()).isEqualTo(0);
-        assertThat(lld1.toList()).containsExactly(1, 2, 3);
+        assertThat(lld1.toList()).containsExactly(1, 2, 3).inOrder();
+
+        lld1.removeFirst();
+        lld1.removeFirst();
+
+        assertThat(lld1.toList()).containsExactly(3).inOrder();
+
+        lld1.removeFirst();
+        assertThat(lld1.removeFirst()).isEqualTo(null);
+        lld1.addFirst(0);
+        assertThat(lld1.toList()).containsExactly(0).inOrder();
+        lld1.removeFirst();
+        lld1.addLast(0);
+        assertThat(lld1.toList()).containsExactly(0).inOrder();
     }
 
     @Test
@@ -166,7 +179,20 @@ public class LinkedListDeque61BTest {
         lld1.addLast(3);
 
         assertThat(lld1.removeLast()).isEqualTo(3);
-        assertThat(lld1.toList()).containsExactly(0, 1, 2);
+        assertThat(lld1.toList()).containsExactly(0, 1, 2).inOrder();
+
+        lld1.removeLast();
+        lld1.removeLast();
+
+        assertThat(lld1.toList()).containsExactly(0).inOrder();
+
+        lld1.removeLast();
+        assertThat(lld1.removeLast()).isEqualTo(null);
+        lld1.addFirst(0);
+        assertThat(lld1.toList()).containsExactly(0).inOrder();
+        lld1.removeFirst();
+        lld1.addLast(0);
+        assertThat(lld1.toList()).containsExactly(0).inOrder();
     }
 
     @Test
@@ -179,6 +205,6 @@ public class LinkedListDeque61BTest {
 
         assertThat(lld1.removeLast()).isEqualTo(3);
         assertThat(lld1.removeFirst()).isEqualTo(0);
-        assertThat(lld1.toList()).containsExactly(1, 2);
+        assertThat(lld1.toList()).containsExactly(1, 2).inOrder();
     }
 }

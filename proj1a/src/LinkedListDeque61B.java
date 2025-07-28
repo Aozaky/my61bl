@@ -111,9 +111,9 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
             return sentinel.next;
         }
         if (index < size / 2) {
-            return getRecursiveHelper(index - 1).next;
+            return getRecursiveHelper(index / 2).next;
         } else {
-            return getRecursiveHelper(index + 1).prev;
+            return getRecursiveHelper(index * 2).prev;
         }
     }
 
