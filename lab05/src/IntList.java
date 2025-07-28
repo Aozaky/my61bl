@@ -1,3 +1,6 @@
+import com.puppycrawl.tools.checkstyle.grammar.javadoc.JavadocParser;
+import edu.princeton.cs.algs4.In;
+
 /** A data structure to represent a Linked List of Integers.
  * Each IntList represents one node in the overall Linked List.
  */
@@ -47,8 +50,17 @@ public class IntList {
      * @return The element at [position]
      */
     public int get(int position) {
-        // TODO: YOUR CODE HERE
-        return -1;
+        if (position < 0) {
+            throw new IllegalArgumentException("YOUR MESSAGE HERE");
+        }
+        IntList p = this;
+        for (int i = 0; i < position; i++) {
+            if (p.next == null) {
+                throw new IllegalArgumentException("YOUR MESSAGE HERE");
+            }
+            p = p.next;
+        }
+        return p.item;
     }
 
     /**
@@ -58,8 +70,14 @@ public class IntList {
      * @return The String representation of the list.
      */
     public String toString() {
-        // TODO: YOUR CODE HERE
-        return null;
+        StringBuilder string = new StringBuilder(Integer.toString(this.item));
+        IntList p = this;
+        while (p.next != null) {
+            p = p.next;
+            string.append(" ");
+            string.append(p.item);
+        }
+        return string.toString();
     }
 
     /**
@@ -81,8 +99,16 @@ public class IntList {
             return false;
         }
         if (obj instanceof IntList otherList) {
-            // TODO: your code here
-
+            IntList p = this;
+            IntList q = otherList;
+            while (p != null && q != null) {
+                if (p.item != q.item) {
+                    return false;
+                }
+                p = p.next;
+                q = q.next;
+            }
+            return p == null && q == null;
         }
         return false;
     }
@@ -93,7 +119,11 @@ public class IntList {
      * @param value, the int to be added.
      */
     public void add(int value) {
-        // TODO: YOUR CODE HERE
+        IntList p = this;
+        while (p.next != null){
+            p = p.next;
+        }
+        p.next = new IntList(value, null);
     }
 
     /**
@@ -102,8 +132,13 @@ public class IntList {
      * @return smallest element in the list
      */
     public int smallest() {
-        // TODO: YOUR CODE HERE
-        return -1;
+        IntList p = this;
+        int smaller = p.item;
+        while (p.next != null) {
+            smaller = Math.min(smaller, p.next.item);
+            p = p.next;
+        }
+        return smaller;
     }
 
     /**
@@ -112,8 +147,13 @@ public class IntList {
      * @return The sum of squares of all elements.
      */
     public int squaredSum() {
-        // TODO: YOUR CODE HERE
-        return -1;
+        IntList p = this;
+        int sum = (int) Math.pow(p.item, 2);
+        while (p.next != null) {
+            sum += (int) Math.pow(p.next.item, 2);
+            p = p.next;
+        }
+        return sum;
     }
 
     /**
@@ -170,8 +210,13 @@ public class IntList {
      * @return new list with A followed by B.
      */
     public static IntList catenate(IntList A, IntList B) {
-        // TODO: YOUR CODE HERE
-        return null;
+        if (B == null) {
+            return A;
+        }
+        if (A == null) {
+            return B;
+        }
+        return new IntList(A.item, catenate(A.next, B));
     }
 
     /**
@@ -183,7 +228,17 @@ public class IntList {
      * @return new list with A followed by B.
      */
     public static IntList dcatenate(IntList A, IntList B) {
-        // TODO: YOUR CODE HERE
-        return null;
+        if (A == null) {
+            return B;
+        }
+        if (B == null) {
+            return A;
+        }
+        IntList p = A;
+        while (p.next != null) {
+            p = p.next;
+        }
+        p.next = B;
+        return A;
     }
 }
