@@ -60,6 +60,9 @@ public class LinkedListDeque61BTest {
     @Test
     public void isEmptyTest() {
         Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+
+        assertThat(lld1.toList()).containsExactly().inOrder();
+
         assertThat(lld1.isEmpty()).isTrue();
         lld1.addFirst(1);
         assertThat(lld1.isEmpty()).isFalse();
