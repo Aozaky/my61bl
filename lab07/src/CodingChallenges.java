@@ -1,9 +1,6 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
+import edu.princeton.cs.algs4.In;
+
+import java.util.*;
 
 public class CodingChallenges {
 
@@ -12,8 +9,16 @@ public class CodingChallenges {
      * values from 0 to N except for one missing number.
      */
     public static int missingNumber(int[] values) {
-        // TODO
-        return -1;
+        Set<Integer> seen = new HashSet<>();
+        for (int i : values) {
+            seen.add(i);
+        }
+        for (int i = 0; i <= values.length; i++) {
+            if (!seen.contains(i)) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     /**
@@ -21,7 +26,22 @@ public class CodingChallenges {
      * permutation of s2 if it has the same number of each character as s2.
      */
     public static boolean isPermutation(String s1, String s2) {
-        // TODO
-        return false;
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+
+        Map<Character, Integer> characterCounts = new HashMap<>();
+
+        for (char i: s1.toCharArray()) {
+            characterCounts.put(i, characterCounts.getOrDefault(i, 0) + 1);
+        }
+
+        for (char i : s2.toCharArray()) {
+            if (!characterCounts.containsKey(i) || characterCounts.get(i) == 0) {
+                return false;
+            }
+            characterCounts.put(i, characterCounts.get(i) - 1);
+        }
+        return true;
     }
 }
