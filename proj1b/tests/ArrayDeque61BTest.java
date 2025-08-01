@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -113,12 +114,19 @@ public class ArrayDeque61BTest {
 
      @Test
     public void iteratorTest() {
-         String[] ofArr = "1".repeat(20).split("");
-         ArrayDeque61B<String> arr = ArrayDeque61B.of(ofArr);
+         Deque61B<Integer> arr = new ArrayDeque61B<>();
+         Iterator<Integer> iterator = arr.iterator();
 
-         for (String i : arr) {
-             return;
-         }
+         assertThat(iterator.hasNext()).isFalse();
+
+         arr.addLast(0);
+         assertThat(iterator.hasNext()).isTrue();
+
+         arr.addLast(1);
+         iterator.next();
+         assertThat(iterator.hasNext()).isTrue();
+         iterator.next();
+         assertThat(iterator.hasNext()).isFalse();
 
      }
 
@@ -135,7 +143,18 @@ public class ArrayDeque61BTest {
         lld2.addLast("middle");
         lld2.addLast("back");
 
-        assertThat(lld1).isEqualTo(lld2);
+        assertThat(lld1.equals(lld2)).isTrue();
+
+        lld2.addLast("111");
+
+        assertThat(lld1.equals(lld2)).isFalse();
+
+        Deque61B<String> lld3 = new LinkedListDeque61B<>();
+        lld3.addLast("front");
+        lld3.addLast("middle");
+        lld3.addLast("back");
+
+        assertThat(lld1.equals(lld3)).isTrue();
     }
 
     @Test

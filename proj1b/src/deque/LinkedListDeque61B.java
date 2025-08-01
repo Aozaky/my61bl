@@ -21,7 +21,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
         @Override
         public boolean hasNext() {
-            return curr == sentinel;
+            return curr != sentinel;
         }
 
         @Override
@@ -161,14 +161,18 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof LinkedListDeque61B other) {
-            if (size != other.size) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Deque61B<?> other)) {
+            return false;
+        }
+        if (size != other.size()) {
+            return false;
+        }
+        for (int i = 0; i < size; i++) {
+            if (this.get(i) != other.get(i)) {
                 return false;
-            }
-            for (int i = 0; i < size; i++) {
-                if (this.get(i) != other.get(i)) {
-                    return false;
-                }
             }
         }
         return true;

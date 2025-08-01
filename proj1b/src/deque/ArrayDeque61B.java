@@ -3,10 +3,9 @@ package deque;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.lang.Math;
 import java.util.NoSuchElementException;
 
-public class ArrayDeque61B<T> implements Deque61B<T>{
+public class ArrayDeque61B<T> implements Deque61B<T> {
 
     private T[] items;
     private int first;
@@ -16,7 +15,8 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
 
     public ArrayDeque61B() {
         items = (T[]) new Object[8];
-        first = last = 0;
+        first = 0;
+        last = 0;
         size = 0;
         max = 8;
     }
@@ -27,7 +27,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
 
         @Override
         public boolean hasNext() {
-            return curr == size;
+            return curr != size;
         }
 
         @Override
@@ -44,14 +44,6 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     @Override
     public Iterator<T> iterator() {
         return new ArrayDequeIterator();
-    }
-
-    public static <T> ArrayDeque61B<T> of (T... stuff) {
-        ArrayDeque61B<T> arr = new ArrayDeque61B<>();
-        for (T i : stuff) {
-            arr.addLast(i);
-        }
-        return arr;
     }
 
     private T[] copy(int newSize) {
@@ -168,14 +160,18 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof ArrayDeque61B other) {
-            if (size != other.size) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Deque61B<?> other)) {
+            return false;
+        }
+        if (size != other.size()) {
+            return false;
+        }
+        for (int i = 0; i < size; i++) {
+            if (this.get(i) != other.get(i)) {
                 return false;
-            }
-            for (int i = 0; i < size; i++) {
-                if (this.get(i) != other.get(i)) {
-                    return false;
-                }
             }
         }
         return true;
