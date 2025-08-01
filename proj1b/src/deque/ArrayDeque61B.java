@@ -63,13 +63,17 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     }
 
     private void resizeUp() {
+        items = this.copy(max * 2);
         max *= 2;
-        items = this.copy(max);
+        first = 0;
+        last = size;
     }
 
     private void resizeDown() {
+        items = this.copy(max / 2);
         max /= 2;
-        items = this.copy(max);
+        first = 0;
+        last = size;
     }
 
     @Override
@@ -111,7 +115,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     }
 
     public boolean isFull() {
-        return max - size == 1;
+        return max == size;
     }
 
     @Override

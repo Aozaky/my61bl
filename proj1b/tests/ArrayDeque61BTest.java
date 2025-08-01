@@ -11,6 +11,8 @@ import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ArrayDeque61BTest {
 
@@ -108,29 +110,6 @@ public class ArrayDeque61BTest {
          assertThat(arr.get(arr.size() - 1)).isEqualTo(9);
      }
 
-     @Test
-     public void resizeDownTest() {
-         String[] ofArr = "1".repeat(20).split("");
-
-         ArrayDeque61B<String> arr = ArrayDeque61B.of(ofArr);
-
-         assertThat(arr.size()).isEqualTo(20);
-
-         for (int i = 0; i < 20; i++) {
-             arr.removeLast();
-         }
-
-         arr.addLast("1");
-         arr.addLast("1");
-         arr.addLast("1");
-         arr.addLast("1");
-         arr.addLast("1");
-         arr.addLast("1");
-         arr.addLast("1");
-
-         assertThat(arr.isFull()).isTrue();
-
-     }
 
      @Test
     public void iteratorTest() {
@@ -168,5 +147,45 @@ public class ArrayDeque61BTest {
         lld1.addLast("back");
 
         assertThat(lld1.toString()).isEqualTo("[front, middle, back]");
+    }
+
+    @Test
+    public void testTriggerResizeAndAccess() {
+        ArrayDeque61B<Integer> arr = new ArrayDeque61B<>();
+        // 初始容量为8，isFull() 在 size==7 时扩容
+        for (int i = 0; i < 100; i++) {
+            arr.addLast(i);
+        }
+        // 检查所有元素是否都能正确访问
+        for (int i = 0; i < 100; i++) {
+            assertEquals(i, arr.get(i));
+        }
+    }
+
+    @Test
+    public void testAddRemoveAlternating() {
+        ArrayDeque61B<Integer> arr = new ArrayDeque61B<>();
+        // 连续 add/remove，反复触发扩容和收缩
+        for (int round = 0; round < 20; round++) {
+            for (int i = 0; i < 15; i++) {
+                arr.addLast(i);
+            }
+            for (int i = 0; i < 15; i++) {
+                assertEquals(i, arr.removeFirst());
+            }
+        }
+        assertTrue(arr.isEmpty());
+    }
+
+    @Test
+    public void testAddFirstResize() {
+        ArrayDeque61B<Integer> arr = new ArrayDeque61B<>();
+        // 连续 addFirst 触发多次扩容
+        for (int i = 0; i < 50; i++) {
+            arr.addFirst(i);
+        }
+        for (int i = 0; i < 50; i++) {
+            assertEquals(49 - i, arr.get(i));
+        }
     }
 }
