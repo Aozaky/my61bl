@@ -150,6 +150,9 @@ public class ArrayDeque61BTest {
         arr.removeLast();
         arr.removeLast();
         arr.removeLast();
+        assertThat(arr.size()).isEqualTo(0);
+        arr.removeLast();
+        assertThat(arr.size()).isEqualTo(0);
     }
 
      @Test
