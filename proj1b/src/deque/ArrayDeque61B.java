@@ -170,7 +170,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
             return false;
         }
         for (int i = 0; i < size; i++) {
-            if (this.get(i) != other.get(i)) {
+            if (!this.get(i).equals(other.get(i))) {
                 return false;
             }
         }

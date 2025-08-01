@@ -111,6 +111,46 @@ public class ArrayDeque61BTest {
          assertThat(arr.get(arr.size() - 1)).isEqualTo(9);
      }
 
+    @Test
+    public void resizeDownTest() {
+        ArrayDeque61B<Integer> arr = new ArrayDeque61B<>();
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.addLast(1);
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+        arr.removeLast();
+    }
 
      @Test
     public void iteratorTest() {
@@ -206,5 +246,16 @@ public class ArrayDeque61BTest {
         for (int i = 0; i < 50; i++) {
             assertEquals(49 - i, arr.get(i));
         }
+    }
+
+    @Test
+    public void addAndRemoveTest() {
+         Deque61B<Integer> arr = new ArrayDeque61B<>();
+         arr.addLast(1);
+         arr.addLast(1);
+         arr.removeLast();
+         arr.removeLast();
+         arr.addFirst(1);
+         arr.removeFirst();
     }
 }
