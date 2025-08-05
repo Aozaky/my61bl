@@ -90,9 +90,11 @@ public class BinaryTreeTest {
         BinaryTree.print(x, "x");
         System.setOut(oldOut);
 
-        assertWithMessage("The preorder and/or inorder traversals for the given BinarySearchTree are incorrect")
-                .that(outContent.toString().trim())
-                .isEqualTo("x in preorder\nA B C D E F \nx in inorder\nB A E D F C \n\n".trim());
+        String actual = outContent.toString().replace("\r\n", "\n").trim();
+        String expected = "x in preorder\nA B C D E F \nx in inorder\nB A E D F C \n\n".replace("\r\n", "\n").trim();
 
+        assertWithMessage("The preorder and/or inorder traversals for the given BinarySearchTree are incorrect")
+                .that(actual)
+                .isEqualTo(expected);
     }
 }

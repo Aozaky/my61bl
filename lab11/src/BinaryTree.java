@@ -48,7 +48,33 @@ public class BinaryTree<T> {
     }
 
     /** Optional constructor, see optional exercise in lab (or last week's theoretical lab). */
-    public BinaryTree(ArrayList<T> pre, ArrayList<T> in) { }
+    public BinaryTree(ArrayList<T> pre, ArrayList<T> in) {
+        root = constructorHelper(pre, in);
+    }
+
+    private TreeNode<T> constructorHelper(ArrayList<T> pre, ArrayList<T> in) {
+        if (pre.isEmpty() && in.isEmpty()) {
+            return null;
+        }
+        T rootValue = pre.get(0);
+        TreeNode<T> node = new TreeNode<>(rootValue);
+
+        int i = 0;
+        for (; i < in.size(); i++) {
+            if (in.get(i).equals(rootValue)) {
+                break;
+            }
+        }
+        ArrayList<T> leftIn = new ArrayList<>(in.subList(0, i));
+        ArrayList<T> rightIn = new ArrayList<>(in.subList(i + 1, in.size()));
+        ArrayList<T> leftPre = new ArrayList<>(pre.subList(1, leftIn.size() + 1));
+        ArrayList<T> rightPre = new ArrayList<>(pre.subList(leftPre.size() + 1, pre.size()));
+
+        node.left = constructorHelper(leftPre, leftIn);
+        node.right = constructorHelper(rightPre, rightIn);
+
+        return node;
+    }
 
     /* Print the values in the tree in preorder. */
     public void printPreorder() {
@@ -157,21 +183,48 @@ public class BinaryTree<T> {
 
     /* Returns the height of the tree. */
     public int height() {
-        // TODO: YOUR CODE HERE
-        return 0;
+        if (root == null) {
+            return 0;
+        }
+        if (root.left == null && root.right == null) {
+            return 1;
+        }
+        BinaryTree<T> left = new BinaryTree<>(root.left);
+        BinaryTree<T> right = new BinaryTree<>(root.right);
+        return 1 + Math.max(left.height(), right.height());
     }
 
     /* Returns true if the tree's left and right children are the same height
        and are themselves completely balanced. */
     public boolean isCompletelyBalanced() {
-        // TODO: YOUR CODE HERE
-        return false;
+        if (root == null || (root.left == null && root.right == null)) {
+            return true;
+        }
+        BinaryTree<T> left = new BinaryTree<>(root.left);
+        BinaryTree<T> right = new BinaryTree<>(root.right);
+        if (left.height() != right.height()) {
+            return false;
+        }
+        return left.isCompletelyBalanced() && right.isCompletelyBalanced();
+    }
+
+    private static TreeNode<Integer> fibTreeHelper(int N) {
+        if (N == 0) {
+            return new TreeNode<>(0);
+        }
+        if (N == 1) {
+            return new TreeNode<>(1);
+        }
+        TreeNode<Integer> node = new TreeNode<>(fibTreeHelper(N - 1).item + fibTreeHelper(N - 2).item);
+        node.left = fibTreeHelper(N - 1);
+        node.right = fibTreeHelper(N - 2);
+        return node;
     }
 
     /* Returns a BinaryTree representing the Fibonacci calculation for N. */
     public static BinaryTree<Integer> fibTree(int N) {
-        BinaryTree<Integer> result = new BinaryTree<Integer>();
-        // TODO: YOUR CODE HERE
-        return null;
+        BinaryTree<Integer> result = new BinaryTree<>();
+        result.root = fibTreeHelper(N);
+        return result;
     }
 }

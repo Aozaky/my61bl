@@ -4,11 +4,9 @@ import static com.google.common.truth.Truth.assertWithMessage;
 
 public class BinarySearchTreeTest {
 
-    // TODO: add some of your own tests here to test your implementation!
-
     @Test
     public void containsTest() {
-        BinarySearchTree<Integer> x = new BinarySearchTree();
+        BinarySearchTree<Integer> x = new BinarySearchTree<>();
         assertWithMessage("BST should not contain anything immediately after instantiation").that(x.contains(2)).isFalse();
         x.add(2);
         assertWithMessage("BST should contain 2 after adding 2").that(x.contains(2)).isTrue();
@@ -19,5 +17,12 @@ public class BinarySearchTreeTest {
         x.add(2);
         x.delete(2);
         assertWithMessage("BST should not contain 2 after deleting 2").that(x.contains(2)).isFalse();
+    }
+
+    @Test
+    public void addTest() {
+        BinarySearchTree<Integer> x = new BinarySearchTree<>();
+        x.add(2);
+        assertThat(x.root.item).isEqualTo(2);
     }
 }
