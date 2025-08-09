@@ -31,8 +31,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
         }
         if (key.compareTo(node.item) < 0) {
             node.left = addHelper(node.left, key);
-        }
-        if (key.compareTo(node.item) > 0) {
+        } else {
             node.right = addHelper(node.right, key);
         }
         return node;
